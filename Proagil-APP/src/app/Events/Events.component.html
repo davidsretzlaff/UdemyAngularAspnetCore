@@ -1,7 +1,50 @@
 
-<div *ngFor="let evento of events">
-  Tema: {{evento.tema}}
-  <br>
-  Local: {{evento.local}}
-  <hr>
+<div class="form-inline">
+  <div class="form-group mb2">
+    <input type="text" class="form-control mr-2" placeholder="buscar"
+    [(ngModel)]="filterList">
+  </div>
 </div>
+<table class="table table-striped">
+  <thead class="class-dark">
+    <tr>
+      <th><button (click)="ChangeShowImage()" class="btn btn-outline-primary">Mostrar Imagem</button></th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Option</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="events?.length > 0">
+    <tr *ngFor="let evento of EventsFilter">
+      <td> 
+        <img *ngIf="showImage"
+        src="http://localhost:5000/img/{{evento.image}}" 
+        [style.width.px]="widthImage"
+        [style.margin.px]="marginImage"
+        alt=""> 
+      </td>
+      <td>{{evento.id}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.date}}</td>
+      <td>{{evento.quantityPeoples}}</td>
+      <td>{{evento.lote | uppercase}}</td>
+      <td> 
+        <button class="btn btn-success"></button>
+        <button class="btn btn-danger"></button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!events || events?.length == 0">
+    <tr>
+      <td colspan="7" class="text-center">
+        <h4>Nenum evento encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+
+</table>
